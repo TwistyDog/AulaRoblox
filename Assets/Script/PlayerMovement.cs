@@ -35,35 +35,54 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        // Entrada
-        float horizontal = _moveInput.x;
-        float vertical = _moveInput.y;
+        // Frente / Trás
+        float frenteTras = _moveInput.y;
 
-        Vector3 movimento = new Vector3(horizontal, 0, vertical);
+        // Esquerda / Direita = Rotação
+        float esquerdaDireita = _moveInput.x;
 
-        // Evita velocidade maior na diagonal
-        movimento = Vector3.ClampMagnitude(movimento, 1f);
+        // =========================
+        // ROTAÇÃO
+        // =========================
 
-        // Movimento relativo à direção do personagem
-        if (movimento.magnitude > 0.1f)
+        if (Mathf.Abs(esquerdaDireita) > 0.01f)
         {
-            Vector3 direcao = transform.TransformDirection(movimento);
+            float rotacao = esquerdaDireita * velocidadeRotacao * Time.deltaTime;
 
-            controller.Move(direcao * velocidade * Time.deltaTime);
+            transform.Rotate(0f, rotacao, 0f);
         }
 
-        // Verifica se está no chão
+        // =========================
+        // MOVIMENTO
+        // =========================
+
+        Vector3 movimento = transform.forward * frenteTras;
+
+        controller.Move(
+            movimento * velocidade * Time.deltaTime
+        );
+
+        // =========================
+        // CHÃO
+        // =========================
+
         if (controller.isGrounded)
         {
             if (velocidadeVertical.y < 0)
+            {
                 velocidadeVertical.y = -2f;
-
-           
+            }
         }
 
-        // Gravidade
+        // =========================
+        // GRAVIDADE
+        // =========================
+
         velocidadeVertical.y += gravidade * Time.deltaTime;
 
-        controller.Move(velocidadeVertical * Time.deltaTime);
+        controller.Move(
+            velocidadeVertical * Time.deltaTime
+        );
     }
-}
+
+    }
