@@ -72,6 +72,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Vector2 mouseInput;
 
+    [SerializeField]
+    private bool _checkAttack;
+
+    Animator _anim;
+
 
     // =========================================================
     // START
@@ -79,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        _anim = GetComponent<Animator>();
         // Pega o CharacterController que está no mesmo GameObject
         controller = GetComponent<CharacterController>();
 
@@ -88,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Esconde o cursor
         Cursor.visible = false;
+
     }
 
 
@@ -147,6 +154,22 @@ public class PlayerMovement : MonoBehaviour
         // X = mouse para esquerda/direita
         // Y = mouse para cima/baixo
         mouseInput = value.ReadValue<Vector2>();
+    }
+
+    public void AtaquePerson(InputAction.CallbackContext value)
+    {
+        if (!_checkAttack)
+        {
+            _checkAttack = true;
+          _anim.SetBool("Attack", true);
+
+        }
+    }
+
+    public void CheckAtaqueFase()
+    {
+        _checkAttack = false;
+        _anim.SetBool("Attack", false);
     }
 
 

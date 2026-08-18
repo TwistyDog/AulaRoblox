@@ -32,6 +32,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Ataque",
+                    "type": "Button",
+                    "id": "25cefe3e-4255-4238-b206-7f97ce9527d3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -131,6 +140,17 @@
                     "processors": "",
                     "groups": ";Control3D",
                     "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3ac881ff-17f5-4a45-88da-f6ee7caf83cb",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ataque",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
